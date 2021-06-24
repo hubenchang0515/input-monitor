@@ -72,6 +72,8 @@ void handle_exit_signal(int num)
 
 int main()
 {
+    setvbuf(stdout, NULL, _IOLBF, 128);
+
     monitor_t* monitor = monitor_create("/dev/input", (filter_t)(not_have_prefix), "event");
     if(monitor == NULL)
     {
