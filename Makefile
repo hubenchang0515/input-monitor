@@ -1,18 +1,14 @@
-CFLAGS := -W -Wall -Wextra -O3 -std=c11
+input-monitor : monitor.o input_event.o main.o  
+	gcc -o $@ $^  
 
-TARGET := input-monitor
-OBJS := main.o input_event.o monitor.o
+monitor.o: monitor.c monitor.h
+	gcc -c monitor.c  
 
-.PHONY: all clean
+input_event.o: input_event.c input_event.h input_event_code_name.h
+	gcc -c input_event.c  
 
-all: $(TARGET)
-
-$(TARGET): $(OBJS)
-	$(CC) -o $(TARGET) $(OBJS) $(CFLAGS)
-
-main.o: input_event.h monitor.h
-input_event.o: input_event.h input_event_code_name.h
-monitor.o: monitor.h
+main.o: main.c input_event.h monitor.h
+	gcc -c main.c  
 
 clean:
-	rm -f $(OBJS)
+	rm -f monitor.o input_event.o main.o
