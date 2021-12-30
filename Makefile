@@ -1,3 +1,14 @@
+.PHONY: all install clean
+
+all: input-monitor 
+
+install: all
+
+
+clean: 
+	rm -f monitor.o input_event.o main.o
+
+
 input-monitor : monitor.o input_event.o main.o  
 	gcc -o $@ $^  
 
@@ -10,5 +21,3 @@ input_event.o: input_event.c input_event.h input_event_code_name.h
 main.o: main.c input_event.h monitor.h
 	gcc -c main.c  
 
-clean:
-	rm -f monitor.o input_event.o main.o
